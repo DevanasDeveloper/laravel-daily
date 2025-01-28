@@ -3,12 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\DTOs\UserDTO;
-use App\Enums\EnumStatus;
 use App\Events\SendMailEvent;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
 use App\Services\UserService;
-use Illuminate\Http\Request;
 
 class UserController extends BaseController
 {
