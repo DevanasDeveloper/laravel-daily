@@ -18,32 +18,32 @@ class CategoryService {
         return $this->categoryRepository->all();
     }
 
-    public function createCategory(CategoryDTO $CategoryDTO) {
+    public function createCategory(CategoryDTO $categoryDTO) {
         $data = [
-            'name' => $CategoryDTO->name,
-            'status' => $CategoryDTO->status
+            'name' => $categoryDTO->name,
+            'status' => $categoryDTO->status
         ];
         return $this->categoryRepository->create($data);
     }
 
-    public function updateCategory(Category $Category, CategoryDTO $CategoryDTO) : Bool {
+    public function updateCategory(Category $category, CategoryDTO $categoryDTO) : Bool {
         $data = [
-            'name' => $CategoryDTO->name,
-            'status' => $CategoryDTO->status
+            'name' => $categoryDTO->name,
+            'status' => $categoryDTO->status
         ];
-        return $this->categoryRepository->update($Category, $data);
+        return $this->categoryRepository->update($category, $data);
     }
 
     public function getCategory(Int $id): ?Category {
         return $this->categoryRepository->find($id);
     }
 
-    public function deleteCategory(Category $Category): bool {
-        return $this->categoryRepository->delete($Category);
+    public function deleteCategory(Category $category): bool {
+        return $this->categoryRepository->delete($category);
     }
 
-    public function changeStatusCategory(Category $Category): bool {
-        return $this->categoryRepository->changeStatus($Category);
+    public function changeStatusCategory(Category $category): bool {
+        return $this->categoryRepository->changeStatus($category);
     }
 
 }

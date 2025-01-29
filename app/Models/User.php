@@ -57,6 +57,10 @@ class User extends Authenticatable
         return $this->hasMany(Category::class);
     }
 
+    public function products(){
+        return $this->hasMany(Product::class);
+    }
+
     public function isActive() : bool{
         return $this->status === EnumStatus::ACTIVE;
     }
