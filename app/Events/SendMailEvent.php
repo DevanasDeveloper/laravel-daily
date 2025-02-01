@@ -34,7 +34,7 @@ class SendMailEvent
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('channel-user'),
+            new PrivateChannel('channel-customer'),
         ];
     }
 }

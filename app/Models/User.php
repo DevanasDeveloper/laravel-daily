@@ -53,14 +53,6 @@ class User extends Authenticatable
         'role' => EnumRole::class
     ];
 
-    public function categories(){
-        return $this->hasMany(Category::class);
-    }
-
-    public function products(){
-        return $this->hasMany(Product::class);
-    }
-
     public function isActive() : bool{
         return $this->status === EnumStatus::ACTIVE;
     }
@@ -75,6 +67,18 @@ class User extends Authenticatable
 
     public function isUser() : bool{
         return $this->role === EnumRole::USER;
+    }
+
+    public function isCustomer() : bool{
+        return $this->role === EnumRole::CUSTOMER;
+    }
+
+    public function scopeWhereIsAdmin($query){
+        return $query->where('role',EnumRole::ADMIN->value);
+    }
+
+    public function scopeWhereIsUser($query){
+        return $query->where('role',EnumRole::USER->value);
     }
 
     public function scopeWhereIsCustomer($query){

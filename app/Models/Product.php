@@ -11,7 +11,6 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
         'category_id',
         'image',
         'name',
@@ -25,17 +24,8 @@ class Product extends Model
         'status' => EnumStatus::class
     ];
 
-
-    public function user(){
-        return $this->belongsTo(User::class);
-    }
-
     public function category(){
         return $this->belongsTo(Category::class);
-    }
-
-    public function scopeByUser($query){
-        return $query->where('user_id', auth()->user()->id);
     }
 
     public function isActive() : bool{

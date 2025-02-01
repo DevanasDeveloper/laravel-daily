@@ -10,28 +10,35 @@ use Illuminate\Validation\Rules\In;
 
 class CategoryRepository implements CategoryRepositoryInterface{
 
+    private Category $model;
+
+    public function __construct(Category $model)
+    {
+        $this->model = $model;
+    }
+
     public function all(): array{
-        return CategoryResource::collection(Category::byUser()->get())->toArray(request());
+        return CategoryResource::collection($this->model->all())->toArray(request());
     }
 
     public function create(array $data): Category{
-        return auth()->user()->categories()->create($data);
+        return $this->model->create($data);
     }
 
-    public function update(Category $category,array $data): Bool{
-        return $category->update($data);
+    public function update(Category $model,array $data): Bool{
+        return $model->update($data);
     }
 
     public function find(Int $id): ?Category{
-        return Category::byUser()->find($id);
+        return $this->model->find($id);
     }
 
-    public function delete(Category $category): bool{
-        return $category->delete();
+    public function delete(Category $model): bool{
+        return $model->delete();
     }
 
-    public function changeStatus(Category $category): bool{
-        $category->status = ($category->status == EnumStatus::ACTIVE ? EnumStatus::INACTIVE : EnumStatus::ACTIVE);
-        return $category->save();
+    public function changeStatus(Category $model): bool{
+        $model->status = ($model->status == EnumStatus::ACTIVE ? EnumStatus::INACTIVE : EnumStatus::ACTIVE);
+        return $model->save();
     }
 }

@@ -27,7 +27,8 @@ class CustomerDTO
             phone: $request->input('phone'),
             password: $request->input('password'),
             address: $request->input('address'),
-            status: EnumStatus::from($request->input('status', EnumStatus::INACTIVE->value))
+            status: EnumStatus::from($request->input('status', EnumStatus::INACTIVE->value)),
+            role: EnumRole::from($request->input('role', EnumRole::CUSTOMER->value))
         );
     }
 }

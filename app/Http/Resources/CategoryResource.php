@@ -16,7 +16,6 @@ class CategoryResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'user' => UserResource::make($this->user),
             'name' => $this->name,
             'status' => $this->status->value,
             'created_at'=>$this->created_at->toDateTimeString(),

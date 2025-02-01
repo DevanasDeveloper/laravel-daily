@@ -9,28 +9,35 @@ use App\Repositories\Interfaces\UserRepositoryInterface;
 
 class UserRepository implements UserRepositoryInterface{
 
+    private User $model;
+
+    public function __construct(User $model)
+    {
+        $this->model = $model;
+    }
+
     public function all(): array{
-        return UserResource::collection(User::all())->toArray(request());
+        return UserResource::collection($this->model->whereIsUser()->get())->toArray(request());
     }
 
     public function create(array $data): User{
-        return User::create($data);
+        return $this->model->create($data);
     }
 
-    public function update(User $user,array $data): Bool{
-        return $user->update($data);
+    public function update(User $model,array $data): Bool{
+        return $model->update($data);
     }
 
     public function find(Int $id): ?User{
-        return User::find($id);
+        return $this->model->whereIsUser()->find($id);
     }
 
-    public function delete(User $user): bool{
-        return $user->delete();
+    public function delete(User $model): bool{
+        return $model->delete();
     }
 
-    public function changeStatus(User $user): bool{
-        $user->status = ($user->status == EnumStatus::ACTIVE ? EnumStatus::INACTIVE : EnumStatus::ACTIVE);
-        return $user->save();
+    public function changeStatus(User $model): bool{
+        $model->status = ($model->status == EnumStatus::ACTIVE ? EnumStatus::INACTIVE : EnumStatus::ACTIVE);
+        return $model->save();
     }
 }

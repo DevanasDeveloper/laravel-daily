@@ -9,28 +9,34 @@ use App\Repositories\Interfaces\ProductRepositoryInterface;
 
 class ProductRepository implements ProductRepositoryInterface{
 
+    private Product $model;
+
+    public function __construct(Product $model){
+        $this->model = $model;
+    }
+
     public function all(): array{
-        return ProductResource::collection(Product::byUser()->get())->toArray(request());
+        return ProductResource::collection($this->model->all())->toArray(request());
     }
 
     public function create(array $data): Product{
-        return auth()->user()->products()->create($data);
+        return $this->model->create($data);
     }
 
-    public function update(Product $product,array $data): Bool{
-        return $product->update($data);
+    public function update(Product $model,array $data): Bool{
+        return $model->update($data);
     }
 
     public function find(Int $id): ?Product{
-        return Product::byUser()->find($id);
+        return $this->model->find($id);
     }
 
-    public function delete(Product $product): bool{
-        return $product->delete();
+    public function delete(Product $model): bool{
+        return $model->delete();
     }
 
-    public function changeStatus(Product $product): bool{
-        $product->status = ($product->status == EnumStatus::ACTIVE ? EnumStatus::INACTIVE : EnumStatus::ACTIVE);
-        return $product->save();
+    public function changeStatus(Product $model): bool{
+        $model->status = ($model->status == EnumStatus::ACTIVE ? EnumStatus::INACTIVE : EnumStatus::ACTIVE);
+        return $model->save();
     }
 }

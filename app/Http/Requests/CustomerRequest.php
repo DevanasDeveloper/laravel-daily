@@ -13,7 +13,7 @@ class CustomerRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if(($this->route()->getName() == 'customers.store' || $this->route()->getName() == 'customers.update') && $this->route()->getPrefix() == 'api') {
+        if($this->route()->getName() == 'customers.store' || $this->route()->getName() == 'customers.update') {
             return true;
         }
         return false;

@@ -16,7 +16,6 @@ class ProductResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'user' => UserResource::make($this->user),
             'category' => CategoryResource::make($this->category),
             'image'=>$this->image,
             'name' => $this->name,

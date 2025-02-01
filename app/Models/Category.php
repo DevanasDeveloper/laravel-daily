@@ -12,7 +12,6 @@ class Category extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
         'name',
         'status'
     ];
@@ -20,14 +19,6 @@ class Category extends Model
     protected $casts = [
         'status' => EnumStatus::class
     ];
-
-    public function user(){
-        return $this->belongsTo(User::class);
-    }
-
-    public function scopeByUser($query){
-        return $query->where('user_id', auth()->user()->id);
-    }
 
     public function isActive() : bool{
         return $this->status === EnumStatus::ACTIVE;

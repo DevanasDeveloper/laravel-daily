@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('customer_id');
+            $table->decimal('total',10,3)->default(0);
+            $table->enum('status', ['paid', 'unpaid'])->default('unpaid');
+            $table->foreign('customer_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

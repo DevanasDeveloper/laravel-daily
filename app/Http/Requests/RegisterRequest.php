@@ -14,7 +14,7 @@ class RegisterRequest extends FormRequest
      */
     public function authorize(): bool
     {
-            if($this->route()->getName() == 'register' && $this->route()->getPrefix() == 'api'){
+            if($this->route()->getName() == 'register'){
                 return true;
             }
             return false;

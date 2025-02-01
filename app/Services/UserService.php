@@ -32,7 +32,7 @@ class UserService {
         return $this->userRepository->create($data);
     }
 
-    public function updateUser(User $user, UserDTO $userDTO) : Bool {
+    public function updateUser(User $model, UserDTO $userDTO) : Bool {
         $data = [
             'fullname' => $userDTO->fullname,
             'phone' => $userDTO->phone,
@@ -45,21 +45,21 @@ class UserService {
         if($userDTO->password) {
             $data['password'] = Hash::make($userDTO->password);
         }else {
-            $data['password'] = $user->password;
+            $data['password'] = $model->password;
         }
-        return $this->userRepository->update($user, $data);
+        return $this->userRepository->update($model, $data);
     }
 
     public function getUser(Int $id): ?User {
         return $this->userRepository->find($id);
     }
 
-    public function deleteUser(User $user): bool {
-        return $this->userRepository->delete($user);
+    public function deleteUser(User $model): bool {
+        return $this->userRepository->delete($model);
     }
 
-    public function changeStatusUser(User $user): bool {
-        return $this->userRepository->changeStatus($user);
+    public function changeStatusUser(User $model): bool {
+        return $this->userRepository->changeStatus($model);
     }
 
 }

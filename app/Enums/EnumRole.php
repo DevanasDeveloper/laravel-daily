@@ -11,8 +11,8 @@ enum EnumRole: string{
     {
         return [
             self::ADMIN,
-            self::USER,
-            self::CUSTOMER
+            self::CUSTOMER,
+            self::USER
         ];
     }
 }

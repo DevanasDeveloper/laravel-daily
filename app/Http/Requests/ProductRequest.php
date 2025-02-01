@@ -13,7 +13,7 @@ class ProductRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if(($this->route()->getName() == 'products.store' || $this->route()->getName() == 'products.update') && $this->route()->getPrefix() == 'api') {
+        if($this->route()->getName() == 'products.store' || $this->route()->getName() == 'products.update') {
             return true;
         }
         return false;

@@ -31,7 +31,7 @@ class CustomerService {
         return $this->customerRepository->create($data);
     }
 
-    public function updateCustomer(User $customer, CustomerDTO $customerDTO) : Bool {
+    public function updateCustomer(User $model, CustomerDTO $customerDTO) : Bool {
         $data = [
             'fullname' => $customerDTO->fullname,
             'phone' => $customerDTO->phone,
@@ -44,21 +44,21 @@ class CustomerService {
         if($customerDTO->password) {
             $data['password'] = Hash::make($customerDTO->password);
         }else {
-            $data['password'] = $customer->password;
+            $data['password'] = $model->password;
         }
-        return $this->customerRepository->update($customer, $data);
+        return $this->customerRepository->update($model, $data);
     }
 
     public function getCustomer(Int $id): ?User {
         return $this->customerRepository->find($id);
     }
 
-    public function deleteCustomer(User $customer): bool {
-        return $this->customerRepository->delete($customer);
+    public function deleteCustomer(User $model): bool {
+        return $this->customerRepository->delete($model);
     }
 
-    public function changeStatusCustomer(User $customer): bool {
-        return $this->customerRepository->changeStatus($customer);
+    public function changeStatusCustomer(User $model): bool {
+        return $this->customerRepository->changeStatus($model);
     }
 
 }

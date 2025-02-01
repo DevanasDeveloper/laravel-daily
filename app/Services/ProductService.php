@@ -31,7 +31,7 @@ class ProductService {
         return $this->productRepository->create($data);
     }
 
-    public function updateProduct(Product $product, ProductDTO $productDTO) : Bool {
+    public function updateProduct(Product $model, ProductDTO $productDTO) : Bool {
         $data = [
             'image' => $productDTO->image,
             'category_id' => $productDTO->category_id,
@@ -41,19 +41,19 @@ class ProductService {
             'price' => $productDTO->price,
             'status' => $productDTO->status
         ];
-        return $this->productRepository->update($product, $data);
+        return $this->productRepository->update($model, $data);
     }
 
     public function getProduct(Int $id): ?Product {
         return $this->productRepository->find($id);
     }
 
-    public function deleteProduct(Product $product): bool {
-        return $this->productRepository->delete($product);
+    public function deleteProduct(Product $model): bool {
+        return $this->productRepository->delete($model);
     }
 
-    public function changeStatusProduct(Product $product): bool {
-        return $this->productRepository->changeStatus($product);
+    public function changeStatusProduct(Product $model): bool {
+        return $this->productRepository->changeStatus($model);
     }
 
 }

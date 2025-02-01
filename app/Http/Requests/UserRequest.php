@@ -14,7 +14,7 @@ class UserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if(($this->route()->getName() == 'users.store' || $this->route()->getName() == 'users.update') && $this->route()->getPrefix() == 'api') {
+        if($this->route()->getName() == 'users.store' || $this->route()->getName() == 'users.update') {
             return true;
         }
         return false;

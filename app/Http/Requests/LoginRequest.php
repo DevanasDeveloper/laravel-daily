@@ -11,7 +11,7 @@ class LoginRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if($this->route()->getName() == 'login' && $this->route()->getPrefix() == 'api'){
+        if($this->route()->getName() == 'login'){
             return true;
         }
         return false;
