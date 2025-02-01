@@ -6,10 +6,14 @@ use App\Repositories\UserRepository;
 use App\Repositories\CustomerRepository;
 use App\Repositories\CategoryRepository;
 use App\Repositories\ProductRepository;
+use App\Repositories\OrderRepository;
+use App\Repositories\OrderItemRepository;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Repositories\Interfaces\CustomerRepositoryInterface;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
+use App\Repositories\Interfaces\OrderRepositoryInterface;
+use App\Repositories\Interfaces\OrderItemRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -38,6 +42,16 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             ProductRepositoryInterface::class,
             ProductRepository::class
+        );
+         // bind order interface to order repository 
+         $this->app->bind(
+            OrderRepositoryInterface::class,
+            OrderRepository::class
+        );
+        // bind order item interface to order item repository 
+        $this->app->bind(
+            OrderItemRepositoryInterface::class,
+            OrderItemRepository::class
         );
     }
 

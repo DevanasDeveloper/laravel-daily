@@ -3,10 +3,11 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,34 +37,37 @@ Route::group(["middleware" => "auth:sanctum"], function () {
         Route::get("/profile", "profile")->name('profile');
     });
     // Admin Authorization
-    Route::group(["middleware" => "is.role:admin,user"], function () {
-        //  Customer Controller
-        Route::group(["prefix" => "customers", "as" => "customers."],function () {
-            Route::get("/", [CustomerController::class,"index"])->name('index');
-            Route::post("/", [CustomerController::class,"store"])->name('store');
-            Route::get("/{id}", [CustomerController::class,"show"])->name('show');
-            Route::post("/{id}", [CustomerController::class,"update"])->name('update');
-            Route::delete("/{id}", [CustomerController::class,"destroy"])->name('destroy');
-            Route::get("/{id}/change/status", [CustomerController::class,"changeStatus"])->name('change.status');
+    Route::group(["middleware" => "is.role:admin,user,customer"], function () {
+        Route::group(["middleware" => "is.role:admin,user"], function () {
+            //  Customer Controller
+            Route::group(["prefix" => "customers", "as" => "customers."],function () {
+                Route::get("/", [CustomerController::class,"index"])->name('index');
+                Route::post("/", [CustomerController::class,"store"])->name('store');
+                Route::get("/{id}", [CustomerController::class,"show"])->name('show');
+                Route::post("/{id}", [CustomerController::class,"update"])->name('update');
+                Route::delete("/{id}", [CustomerController::class,"destroy"])->name('destroy');
+                Route::get("/{id}/change/status", [CustomerController::class,"changeStatus"])->name('change.status');
+            });
+            // Category Controller
+            Route::group(["prefix" => "categories", "as" => "categories."],function () {
+                Route::get("/", [CategoryController::class,"index"])->name('index');
+                Route::post("/", [CategoryController::class,"store"])->name('store');
+                Route::get("/{id}", [CategoryController::class,"show"])->name('show');
+                Route::post("/{id}", [CategoryController::class,"update"])->name('update');
+                Route::delete("/{id}", [CategoryController::class,"destroy"])->name('destroy');
+                Route::get("/{id}/change/status", [CategoryController::class,"changeStatus"])->name('change.status');
+            });
+            // Product Controller
+            Route::group(["prefix" => "products", "as" => "products."],function () {
+                Route::get("/", [ProductController::class,"index"])->name('index');
+                Route::post("/", [ProductController::class,"store"])->name('store');
+                Route::get("/{id}", [ProductController::class,"show"])->name('show');
+                Route::post("/{id}", [ProductController::class,"update"])->name('update');
+                Route::delete("/{id}", [ProductController::class,"destroy"])->name('destroy');
+                Route::get("/{id}/change/status", [ProductController::class,"changeStatus"])->name('change.status');
+            });
         });
-        // Category Controller
-        Route::group(["prefix" => "categories", "as" => "categories."],function () {
-            Route::get("/", [CategoryController::class,"index"])->name('index');
-            Route::post("/", [CategoryController::class,"store"])->name('store');
-            Route::get("/{id}", [CategoryController::class,"show"])->name('show');
-            Route::post("/{id}", [CategoryController::class,"update"])->name('update');
-            Route::delete("/{id}", [CategoryController::class,"destroy"])->name('destroy');
-            Route::get("/{id}/change/status", [CategoryController::class,"changeStatus"])->name('change.status');
-        });
-        // Product Controller
-        Route::group(["prefix" => "products", "as" => "products."],function () {
-            Route::get("/", [ProductController::class,"index"])->name('index');
-            Route::post("/", [ProductController::class,"store"])->name('store');
-            Route::get("/{id}", [ProductController::class,"show"])->name('show');
-            Route::post("/{id}", [ProductController::class,"update"])->name('update');
-            Route::delete("/{id}", [ProductController::class,"destroy"])->name('destroy');
-            Route::get("/{id}/change/status", [ProductController::class,"changeStatus"])->name('change.status');
-        });
+        // Admin Authorization
         Route::group(["middleware" => "is.role:admin"], function () {
             //  User Controller
             Route::group(["prefix" => "users", "as" => "users."],function () {
@@ -78,7 +82,13 @@ Route::group(["middleware" => "auth:sanctum"], function () {
 
         // Customer Authorization
         Route::group(["middleware" => "is.role:customer"], function () {
-            
+            //  Order Controller
+            Route::group(["prefix" => "orders", "as" => "orders."],function () {
+                Route::get("/", [OrderController::class,"index"])->name('index');
+                Route::post("/", [OrderController::class,"store"])->name('store');
+                Route::get("/{id}", [OrderController::class,"show"])->name('show');
+                Route::delete("/{id}", [OrderController::class,"destroy"])->name('destroy');
+            });
         });
 
     });

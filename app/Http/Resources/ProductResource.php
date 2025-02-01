@@ -23,8 +23,8 @@ class ProductResource extends JsonResource
             'quantity' => $this->quantity,
             'price' => $this->price,
             'status' => $this->status->value,
-            'created_at'=>$this->created_at->toDateTimeString(),
-            'updated_at'=>$this->updated_at->toDateTimeString()
+            'created_at'=>$this->created_at,
+            'updated_at'=>$this->updated_at
         ];
     }
 }

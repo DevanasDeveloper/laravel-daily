@@ -31,4 +31,11 @@ class OrderItem extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    public function getProductModelAttribute()
+    {
+        $product = new product($this->product_data);
+        $product->id = $this->product_id;
+        return $product;
+    }
 }
