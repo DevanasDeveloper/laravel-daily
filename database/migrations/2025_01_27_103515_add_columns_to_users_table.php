@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('phone')->after('email');
             $table->string('address')->after('phone');
             $table->enum('status', ['active', 'inactive'])->after('phone')->default('active');
-            $table->enum('role', ['admin', 'user'])->after('status')->default('user');
+            $table->enum('role', ['admin', 'user','customer'])->after('status')->default('user');
         });
     }
 

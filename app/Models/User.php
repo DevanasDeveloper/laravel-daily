@@ -76,4 +76,8 @@ class User extends Authenticatable
     public function isUser() : bool{
         return $this->role === EnumRole::USER;
     }
+
+    public function scopeWhereIsCustomer($query){
+        return $query->where('role',EnumRole::CUSTOMER->value);
+    }
 }

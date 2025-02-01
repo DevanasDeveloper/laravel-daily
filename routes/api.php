@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 
@@ -45,6 +46,15 @@ Route::group(["middleware" => "auth:sanctum"], function () {
                 Route::post("/users/{id}", "update")->name('users.update');
                 Route::delete("/users/{id}", "destroy")->name('users.destroy');
                 Route::get("/users/{id}/change/status", "changeStatus")->name('users.change.status');
+            });
+            //  Customer Controller
+            Route::controller(CustomerController::class)->group(function () {
+                Route::get("/customers", "index")->name('customers.index');
+                Route::post("/customers", "store")->name('customers.store');
+                Route::get("/customers/{id}", "show")->name('customers.show');
+                Route::post("/customers/{id}", "update")->name('customers.update');
+                Route::delete("/customers/{id}", "destroy")->name('customers.destroy');
+                Route::get("/customers/{id}/change/status", "changeStatus")->name('customers.change.status');
             });
         });
 
