@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\DTOs\OrderDTO;
+use App\Enums\EnumGateWay;
 use App\Models\Order;
 use App\Repositories\Interfaces\OrderRepositoryInterface;
 use App\Repositories\Interfaces\OrderItemRepositoryInterface;
@@ -13,10 +14,12 @@ class OrderService {
     private $orderRepository;
     private $orderItemRepository;
     private $productRepository;
-    public function __construct(OrderRepositoryInterface $orderRepository,OrderItemRepositoryInterface $orderItemRepository,ProductRepositoryInterface $productRepository) {
+    private $paymentService;
+    public function __construct(OrderRepositoryInterface $orderRepository,OrderItemRepositoryInterface $orderItemRepository,ProductRepositoryInterface $productRepository,PaymentService $paymentService) {
         $this->orderRepository = $orderRepository;
         $this->orderItemRepository = $orderItemRepository;
         $this->productRepository = $productRepository;
+        $this->paymentService = $paymentService;
     }
 
     public function getAllOrders(): array {
@@ -45,6 +48,8 @@ class OrderService {
         }
 
         $this->orderItemRepository->insert($data_items);
+
+        $this->paymentService->processPayment($order,EnumGateWay::PAYPAL);
 
         return $order;
     }

@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Enums\EnumOrderStatus;
 use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use App\Repositories\Interfaces\OrderRepositoryInterface;
@@ -27,5 +28,11 @@ class OrderRepository implements OrderRepositoryInterface{
 
     public function delete(Order $model): bool{
         return $model->delete();
+    }
+
+    public function changeStatus(Order $model, EnumOrderStatus $status): ?bool
+    {
+        $model->status = $status;
+        return $model->save();
     }
 }
