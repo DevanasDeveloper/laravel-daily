@@ -18,6 +18,7 @@ class OrderResource extends JsonResource
             'id' => $this->id,
             'customer' => CustomerResource::make($this->customer),
             'order_items' => OrderItemResource::collection($this->order_items)->toArray(request()),
+            'payment' => $this->payment ? PaymentResource::make($this->payment) : null,
             'total'=>$this->total,
             'status' => $this->status->value,
             'created_at'=>$this->created_at,

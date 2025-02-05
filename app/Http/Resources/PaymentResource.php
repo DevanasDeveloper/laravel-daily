@@ -16,7 +16,7 @@ class PaymentResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'order' => OrderResource::make($this->order),
+            // 'order' => OrderResource::make($this->order),
             'amount'=>$this->amount,
             'payment_method'=>$this->payment_method->value,
             'payment_status' => $this->payment_status->value,
